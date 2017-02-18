@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, HostListener} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef, HostListener} from '@angular/core';
 import {HttpService} from "./http.service";
 import {DetailComponent} from "./detail.commponent";
 
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   selectedData; // 選択したエリアのツアー情報
   bookmarks; // ブックマーク
   isMobile; // PCとモバイルの判定
-  MOBILE_SCREEN_WIDTH = "768"; // モバイル判定画面幅
+  MOBILE_SCREEN_WIDTH = 768; // モバイル判定画面幅
   isCollapsed = false; // エリア選択メニューの開閉
   areas = [
     { code: "BCH", name: "ビーチリゾート", data: null},
@@ -26,7 +26,9 @@ export class AppComponent implements OnInit {
   ];
   viewContainerRef; // modal表示用
 
-  public constructor(private httpService: HttpService) { } // HttpServiceのDI
+  public constructor(private httpService: HttpService, viewContainerRef: ViewContainerRef) {
+    this.viewContainerRef = viewContainerRef;
+  } // HttpServiceのDI
 
   // アプリ起動時の処理
   ngOnInit() {
@@ -34,6 +36,8 @@ export class AppComponent implements OnInit {
     this.getTour();
     // 保存したブックマークの取得
     this.initBookmarks();
+    // PCとモバイルデバイスの判定
+    this.onScreenResize();
   }
 
   // エリアメニュー選択時
@@ -120,4 +124,9 @@ export class AppComponent implements OnInit {
     this.detailComponent.openDialog();
   }
 
+  // resizeイベント
+  @HostListener("window:resize")
+  onScreenResize() {
+    this.isMobile = (innerWidth < this.MOBILE_SCREEN_WIDTH);
+  }
 }
