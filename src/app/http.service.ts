@@ -7,10 +7,8 @@ import {API_KEY} from "./app.setting";
 
 @Injectable()
 export class HttpService {
-
   //Web API URL
-  WEB_API_URL: string =
-    "https://webservice.recruit.co.jp/ab-road/tour/v1/";
+  WEB_API_URL: string = "https://webservice.recruit.co.jp/ab-road/tour/v1/";
   //取得件数
   DEFAULT_SIZE = "30";
   //取得の順番(人気順:5)
