@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, HostListener} from '@angular/core';
 import {HttpService} from "./http.service";
+import {DetailComponent} from "./detail.commponent";
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,10 @@ import {HttpService} from "./http.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  // ツアー明細ダイアログの参照取得
+  @ViewChild("detailDialog") detailComponent: DetailComponent;
+
   tourObj; // 選択したツアー情報（1件分）
   selectedData; // 選択したエリアのツアー情報
   bookmarks; // ブックマーク
@@ -19,6 +24,7 @@ export class AppComponent implements OnInit {
     { code: "DUS", name: "アメリカ", data: null},
     { code: "BOOKMARK", name: "お気に入り", data: null},
   ];
+  viewContainerRef; // modal表示用
 
   public constructor(private httpService: HttpService) { } // HttpServiceのDI
 
@@ -106,6 +112,12 @@ export class AppComponent implements OnInit {
     }
     // Web API成功時
     this.areas[i].data = result;
+  }
+
+  // ツアー詳細ボタンクリック時
+  onDetailClick(index) {
+    this.tourObj = this.selectedData[index];
+    this.detailComponent.openDialog();
   }
 
 }
