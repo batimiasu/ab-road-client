@@ -8,7 +8,7 @@ import {HttpService} from "./http.service";
 })
 export class AppComponent implements OnInit {
   tourObj; // 選択したツアー情報（1件分）
-  selectedDate; // 選択したエリアのツアー情報
+  selectedData; // 選択したエリアのツアー情報
   bookmarks; // ブックマーク
   isMobile; // PCとモバイルの判定
   MOBILE_SCREEN_WIDTH = "768"; // モバイル判定画面幅
@@ -39,10 +39,11 @@ export class AppComponent implements OnInit {
         alert("ブックマークが登録されていません");
         return;
       }
-      this.selectedDate = Object.keys(this.bookmarks).map(key => this.bookmarks[key]);
+      this.selectedData = Object.keys(this.bookmarks).map(key => this.bookmarks[key]);
     } else {
       // エリア名選択時
-      this.selectedDate = area.data;
+      console.log(area);
+      this.selectedData = area.data.data;
     }
     // スクロール位置をリセット（一部のブラウザはタイマーが必要）
     setTimeout(scroll(0, 0), 1);
@@ -67,7 +68,7 @@ export class AppComponent implements OnInit {
         return alert("Bookmarkは最大10件です。");
       }
       // 登録
-      this.bookmarks[tourID] = this.selectedDate[index];
+      this.bookmarks[tourID] = this.selectedData[index];
     } else {
       // 登録済みの場合はブックマーク情報から削除
       delete this.bookmarks[tourID];
@@ -83,7 +84,7 @@ export class AppComponent implements OnInit {
 
   // 3エリアのツアー情報を一括受信
   getTour() {
-    this.selectedDate = null;
+    this.selectedData = null;
     for (let i = 0; i < this.areas.length; i++) {
       let areaCode = this.areas[i].code;
       if (areaCode === "BOOKMARK") { // お気に入りはローカル保存のため受信不要
