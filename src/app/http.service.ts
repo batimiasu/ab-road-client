@@ -3,8 +3,6 @@ import {Jsonp, URLSearchParams, RequestOptions, RequestOptionsArgs} from "@angul
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 
-import {API_KEY} from "./app.setting";
-
 @Injectable()
 export class HttpService {
   //Web API URL
@@ -31,7 +29,7 @@ export class HttpService {
   setParam(areaCode: string): RequestOptions {
     //Urlパラメータオブジェクト作成
     let param = new URLSearchParams();
-    param.set("key", API_KEY);
+    param.set("key", "0ff4cedd40836cfb");
     param.set("area", areaCode);
     param.set("order", this.SORT_RANKING);
     param.set("count", this.DEFAULT_SIZE);
