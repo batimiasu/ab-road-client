@@ -29,7 +29,7 @@ export class HttpService {
   setParam(areaCode: string): RequestOptions {
     // Urlパラメータオブジェクト作成
     let param = new URLSearchParams();
-    param.set('key', process.env.ABROAD_API_KEY);
+    param.set('key', '0ff4cedd40836cfb');
     param.set('area', areaCode);
     param.set('order', this.SORT_RANKING);
     param.set('count', this.DEFAULT_SIZE);
