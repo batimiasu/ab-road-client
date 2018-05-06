@@ -5,7 +5,7 @@ import { JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HttpService } from './http.service';
-import {Ng2BootstrapModule} from 'ngx-bootstrap';
+import { Ng2BootstrapModule } from 'ngx-bootstrap';
 import {DetailComponent} from './detail.commponent';
 
 @NgModule({
@@ -17,7 +17,7 @@ import {DetailComponent} from './detail.commponent';
     BrowserModule,
     FormsModule,
     JsonpModule,
-    Ng2BootstrapModule
+    Ng2BootstrapModule.forRoot(),
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
