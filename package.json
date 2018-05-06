@@ -4,7 +4,8 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve",
+    "start": "ng server.js",
+    "postinstall": "ng build --aot --target=production",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
@@ -12,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "^1.4.0",
     "@angular/common": "^2.1.0",
     "@angular/compiler": "^2.1.0",
     "@angular/compiler-cli": "^2.1.0",
@@ -27,10 +29,10 @@
     "ngx-bootstrap": "^1.9.3",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
-    "zone.js": "^0.7.0"
+    "zone.js": "^0.7.0",
+    "typescript": "2.2.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.4.0",
     "@types/jasmine": "2.5.41",
     "@types/node": "^6.0.42",
     "codelyzer": "^4.3.0",
@@ -43,7 +45,10 @@
     "karma-remap-istanbul": "^0.2.1",
     "protractor": "4.0.9",
     "ts-node": "1.2.1",
-    "tslint": "^5.0.0",
-    "typescript": "2.2.2"
+    "tslint": "^5.0.0"
+  },
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.0"
   }
 }
