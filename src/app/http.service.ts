@@ -1,65 +1,65 @@
-import {Injectable} from "@angular/core";
-import {Jsonp, URLSearchParams, RequestOptions, RequestOptionsArgs} from "@angular/http";
-import {Observable} from "rxjs";
-import "rxjs/add/operator/map";
+import {Injectable} from '@angular/core';
+import {Jsonp, URLSearchParams, RequestOptions, RequestOptionsArgs} from '@angular/http';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HttpService {
-  //Web API URL
-  WEB_API_URL: string = "https://webservice.recruit.co.jp/ab-road/tour/v1/";
-  //取得件数
-  DEFAULT_SIZE = "30";
-  //取得の順番(人気順:5)
-  SORT_RANKING = "5";
-  //JSONPコールバック関数名(Angular2固有値）
-  CALLBACK = "JSONP_CALLBACK";
+  // Web API URL
+  WEB_API_URL = 'https://webservice.recruit.co.jp/ab-road/tour/v1/';
+  // 取得件数
+  DEFAULT_SIZE = '30';
+  // 取得の順番(人気順:5)
+  SORT_RANKING = '5';
+  // JSONPコールバック関数名(Angular2固有値）
+  CALLBACK = 'JSONP_CALLBACK';
 
   constructor(private jsonp: Jsonp) {
   }
 
-  //クラウドからツアー情報取得
+  // クラウドからツアー情報取得
   getTourData(areaCode: string): Observable<any> {
-    //接続設定
+    // 接続設定
     let option = this.setParam(areaCode);
-    //データ取得
+    // データ取得
     return this.reqData(option);
   }
 
-  //通信設定値作成
+  // 通信設定値作成
   setParam(areaCode: string): RequestOptions {
-    //Urlパラメータオブジェクト作成
+    // Urlパラメータオブジェクト作成
     let param = new URLSearchParams();
-    param.set("key", "0ff4cedd40836cfb");
-    param.set("area", areaCode);
-    param.set("order", this.SORT_RANKING);
-    param.set("count", this.DEFAULT_SIZE);
-    param.set("format", "jsonp");
-    param.set("callback", this.CALLBACK);
+    param.set('key', '0ff4cedd40836cfb');
+    param.set('area', areaCode);
+    param.set('order', this.SORT_RANKING);
+    param.set('count', this.DEFAULT_SIZE);
+    param.set('format', 'jsonp');
+    param.set('callback', this.CALLBACK);
 
-    //通信設定オブジェクト作成
+    // 通信設定オブジェクト作成
     let options: RequestOptionsArgs = {
-      method: "get",
+      method: 'get',
       url: this.WEB_API_URL,
       search: param
     };
     return new RequestOptions(options);
   }
 
-  //HTTPリクエストとレスポンス処理
+  // HTTPリクエストとレスポンス処理
   reqData(config: RequestOptions): Observable<any> {
     return this.jsonp.request(config.url, config)
       .map((response) => {
           let tourData;
           let obj = response.json();
           if (obj.results.error) {
-            //Web APIリクエスト失敗
+            // Web APIリクエスト失敗
             let err = obj.results.error[0];
             tourData = {
               error: err.code,
               message: err.message
             }
           } else {
-            //Web APIリクエスト成功
+            // Web APIリクエスト成功
             let dataObj = obj.results.tour;
             tourData = {
               error: null,

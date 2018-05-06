@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HttpService } from "./http.service";
-import {Ng2BootstrapModule} from "ng2-bootstrap";
-import {DetailComponent} from "./detail.commponent";
+import { HttpService } from './http.service';
+import {Ng2BootstrapModule} from 'ngx-bootstrap';
+import {DetailComponent} from './detail.commponent';
 
 @NgModule({
   declarations: [
